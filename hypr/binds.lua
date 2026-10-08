@@ -71,3 +71,6 @@ hl.bind("SHIFT + Print", hl.dsp.exec_cmd("mkdir -p ~/Pictures/Screenshots && gri
 
 -- Clipboard history (cliphist)
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p clipboard | cliphist decode | wl-copy"))
+
+-- Night light: toggle between the scheduled profile and no colour change
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("~/.config/hypr/scripts/nightlight-toggle.sh"))
