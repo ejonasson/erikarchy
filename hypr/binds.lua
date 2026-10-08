@@ -59,3 +59,15 @@ hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = tr
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
+
+-- Lock screen
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
+
+-- Screenshots: saved to ~/Pictures/Screenshots and copied to the clipboard
+local shotFile = "~/Pictures/Screenshots/$(date +%F_%H-%M-%S).png"
+local shotDone = "| wl-copy && notify-send -t 2000 'Screenshot' 'Saved and copied'"
+hl.bind("Print",         hl.dsp.exec_cmd("mkdir -p ~/Pictures/Screenshots && g=$(slurp) && grim -g \"$g\" - | tee " .. shotFile .. " " .. shotDone))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("mkdir -p ~/Pictures/Screenshots && grim - | tee " .. shotFile .. " " .. shotDone))
+
+-- Clipboard history (cliphist)
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p clipboard | cliphist decode | wl-copy"))
