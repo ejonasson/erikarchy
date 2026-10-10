@@ -14,6 +14,10 @@ cd ~/.config
 git status
 ```
 
+Remote: <https://github.com/ejonasson/erikarchy> (public). Pushes go over
+HTTPS using the GitHub CLI's login (`gh auth git-credential`, set in this
+repo's git config).
+
 ## What's in here
 
 | Path | What it is |
@@ -145,7 +149,6 @@ to `hl.exec_cmd("waybar")`. Then add `pkill -RTMIN+8 -x waybar` back into
   in tablet mode.
 - The `hyprsunset` package is still installed but unused
   (`sudo pacman -Rns hyprsunset`).
-- No remote yet. Pushing to GitHub needs a repository to be created first.
 
 ## Changelog
 
@@ -153,6 +156,10 @@ Newest first. Every change to this repo gets an entry here (see `AGENTS.md`).
 
 ### 2026-10-10
 
+- **Published** to <https://github.com/ejonasson/erikarchy> (public). Checked
+  beforehand for credentials: none. The commits include the author email and
+  `hypr/monitors.lua` includes the BenQ's serial number; both were kept
+  deliberately.
 - **Dotfiles repo created.** `~/.config` is now a git repository with a
   whitelist `.gitignore`. The previous `hypr/` repo's history was imported
   under the `hypr/` prefix. The old `.git` folders from `hypr/` and `nvim/`

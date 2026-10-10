@@ -35,8 +35,11 @@ worth remembering, such as a missing package.
 - There must be no nested `.git` directories. The old `hypr/` and `nvim/`
   repos were moved to `~/.local/share/dotfiles-old-git/`.
 - Commit identity is set in the repo config (`ejonasson <ejonasson@gmail.com>`).
-- Commit only when the user asks. There is no remote yet, so don't push or
-  create one unless asked.
+- Commit and push only when the user asks. The remote is
+  `origin` → <https://github.com/ejonasson/erikarchy>, which is **public**:
+  check new files for credentials and personal data before committing.
+- `gh/hosts.yml` (the GitHub CLI login token) is in `~/.config` and must never
+  be un-ignored.
 - Before deleting a file, check whether it's tracked; mention it in the
   changelog if so.
 
