@@ -20,8 +20,17 @@ hl.config({
     },
 })
 
+-- Touchpad: 3-finger horizontal swipe switches workspaces (macOS style)
 hl.gesture({
     fingers = 3,
     direction = "horizontal",
     action = "workspace"
+})
+
+-- Touchscreen: Hyprland has no multi-finger touchscreen gestures, only a
+-- one-finger swipe in from the left/right screen edge
+hl.config({
+    gestures = {
+        workspace_swipe_touch = true,
+    },
 })

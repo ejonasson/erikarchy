@@ -6,6 +6,7 @@ local programs    = require("programs")
 local terminal    = programs.terminal
 local fileManager = programs.fileManager
 local menu        = programs.menu
+local browser     = programs.browser
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
@@ -15,10 +16,13 @@ local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+hl.bind(mainMod .. " + F",         hl.dsp.window.fullscreen({ mode = "maximized",  action = "toggle" }))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
@@ -32,6 +36,11 @@ for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
     hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i}))
     hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
+end
+
+-- Keep workspaces 1-4 around even when empty
+for i = 1, 4 do
+    hl.workspace_rule({ workspace = tostring(i), persistent = true })
 end
 
 -- Example special workspace (scratchpad)
@@ -72,5 +81,16 @@ hl.bind("SHIFT + Print", hl.dsp.exec_cmd("mkdir -p ~/Pictures/Screenshots && gri
 -- Clipboard history (cliphist)
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p clipboard | cliphist decode | wl-copy"))
 
--- Night light: toggle between the scheduled profile and no colour change
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("~/.config/hypr/scripts/nightlight-toggle.sh"))
+-- Firefox: Ctrl+1-8 jumps to that tab, Ctrl+9 to the last tab (Firefox on Linux only knows Alt+N).
+-- Other apps still get the plain Ctrl+N.
+for i = 1, 9 do
+    hl.bind("CTRL + " .. i, function ()
+        local w = hl.get_active_window()
+        local mods = (w and w.class == "firefox") and "ALT" or "CTRL"
+        hl.dispatch(hl.dsp.send_shortcut({ mods = mods, key = tostring(i) }))
+    end)
+end
+
+-- Tablet mode: show the on-screen keyboard when the hinge flips back, hide it in laptop mode
+hl.bind("switch:on:Intel HID switches",  hl.dsp.exec_cmd("~/.config/hypr/scripts/tablet-mode.sh on"),  { locked = true })
+hl.bind("switch:off:Intel HID switches", hl.dsp.exec_cmd("~/.config/hypr/scripts/tablet-mode.sh off"), { locked = true })
