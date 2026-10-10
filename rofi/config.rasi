@@ -1,0 +1,93 @@
+configuration {
+    modi:              "drun,run,window";
+    show-icons:        true;
+    font:              "JetBrainsMono Nerd Font 12";
+    drun-display-format: "{name}";
+    display-drun:      "  apps";
+    display-run:       "  run";
+    display-window:    "  windows";
+}
+
+@theme "/dev/null"
+@import "catppuccin-mocha.rasi"
+
+* {
+    background-color: transparent;
+    text-color:       @text;
+}
+
+window {
+    width:            600px;
+    background-color: @base;
+    border:           2px;
+    border-color:     @peach;
+    border-radius:    10px;
+    padding:          14px;
+}
+
+mainbox {
+    spacing:  10px;
+    children: [ inputbar, message, listview ];
+}
+
+inputbar {
+    background-color: @surface0;
+    border-radius:    8px;
+    padding:          10px 12px;
+    spacing:          10px;
+    children:         [ prompt, entry ];
+}
+
+prompt { text-color: @peach; }
+
+entry {
+    placeholder:       "search";
+    placeholder-color: @overlay0;
+    cursor:            text;
+}
+
+message {
+    background-color: @mantle;
+    border-radius:    8px;
+    padding:          8px 12px;
+}
+
+listview {
+    lines:        8;
+    columns:      1;
+    spacing:      4px;
+    scrollbar:    false;
+    fixed-height: false;
+}
+
+element {
+    padding:       8px 12px;
+    spacing:       10px;
+    border-radius: 8px;
+    cursor:        pointer;
+}
+
+element normal.normal,
+element alternate.normal { background-color: transparent; text-color: @text; }
+element normal.urgent,
+element alternate.urgent { text-color: @red; }
+element normal.active,
+element alternate.active { text-color: @peach; }
+
+element selected.normal  { background-color: @surface1; text-color: @peach; }
+element selected.urgent  { background-color: @red;      text-color: @crust; }
+element selected.active  { background-color: @peach;    text-color: @crust; }
+
+element-icon {
+    size:       1.2em;
+    cursor:     inherit;
+}
+
+element-text {
+    text-color:      inherit;
+    highlight:       bold #f38ba8;   /* red match highlight */
+    cursor:          inherit;
+    vertical-align:  0.5;
+}
+
+textbox { text-color: @text; }

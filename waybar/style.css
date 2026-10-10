@@ -1,0 +1,76 @@
+/* Catppuccin Mocha — matches the Hyprland borders and hyprlock */
+@define-color bg      rgba(30, 30, 46, 0.85);  /* base */
+@define-color fg      #cdd6f4;                 /* text */
+@define-color muted   #6c7086;                 /* overlay0 */
+@define-color peach   #fab387;
+@define-color red     #f38ba8;
+@define-color green   #a6e3a1;
+@define-color warn    #f9e2af;                 /* yellow */
+@define-color crit    @red;
+
+* {
+    font-family: "JetBrainsMono Nerd Font Propo", monospace;
+    font-size: 13px;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background: @bg;
+    color: @fg;
+    border-radius: 10px;
+    border: 1px solid alpha(@peach, 0.25);
+}
+
+tooltip {
+    background: @bg;
+    border: 1px solid alpha(@peach, 0.4);
+    border-radius: 8px;
+}
+
+/* Workspaces */
+#workspaces { margin-left: 6px; }
+
+#workspaces button {
+    padding: 0 8px;
+    margin: 4px 1px;
+    color: @muted;
+    background: transparent;
+    border-radius: 6px;
+}
+
+#workspaces button:hover {
+    background: alpha(@peach, 0.12);
+    color: @fg;
+}
+
+#workspaces button.active {
+    color: #11111b;
+    background: linear-gradient(45deg, @peach, @red);
+}
+
+#workspaces button.urgent { color: @crit; }
+
+/* Centre clock */
+#clock {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Right-hand modules */
+#custom-osk, #tray, #idle_inhibitor, #network, #wireplumber, #backlight, #battery {
+    padding: 0 10px;
+}
+
+#battery { margin-right: 6px; }
+
+#idle_inhibitor.activated { color: @peach; }
+#custom-osk               { font-size: 16px; }
+#custom-osk.shown         { color: @peach; }
+#network.disconnected      { color: @muted; }
+#wireplumber.muted         { color: @muted; }
+
+#battery.charging, #battery.plugged { color: @green; }
+#battery.warning:not(.charging)     { color: @warn; }
+#battery.critical:not(.charging)    { color: @crit; }

@@ -1,0 +1,122 @@
+// Waybar config — see `man 5 waybar` and `man 5 waybar-<module>`
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "margin-top": 8,
+    "margin-left": 20,
+    "margin-right": 20,
+    "spacing": 0,
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "custom/osk",
+        "tray",
+        "idle_inhibitor",
+        "network",
+        "wireplumber",
+        "backlight",
+        "battery"
+    ],
+    "hyprland/workspaces": {
+        "format": "{id}",
+        "persistent-workspaces": { "*": 4 },
+        "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e-1\" })'",
+        "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e+1\" })'"
+    },
+    "clock": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%a %d %b  %H:%M}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "today": "<span color='#fab387'><b>{}</b></span>"
+            }
+        }
+    },
+    // On-screen keyboard toggle; only visible in tablet mode (see hypr/scripts/tablet-mode.sh)
+    "custom/osk": {
+        "exec": "~/.config/hypr/scripts/tablet-mode.sh status",
+        "return-type": "json",
+        "signal": 8,
+        "interval": 2,
+        "on-click": "~/.config/hypr/scripts/tablet-mode.sh toggle"
+    },
+    "tray": {
+        "icon-size": 15,
+        "spacing": 8
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰅶",
+            "deactivated": "󰛊"
+        },
+        "tooltip-format-activated": "Idle inhibited (no auto-lock)",
+        "tooltip-format-deactivated": "Idle allowed"
+    },
+    "network": {
+        "format-wifi": "{icon}",
+        "format-icons": [
+            "󰤟",
+            "󰤢",
+            "󰤥",
+            "󰤨"
+        ],
+        "format-ethernet": "󰈀",
+        "format-disconnected": "󰤮",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}",
+        "tooltip-format-ethernet": "{ifname}\n{ipaddr}",
+        "on-click": "nm-connection-editor"
+    },
+    "wireplumber": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 muted",
+        "format-icons": [
+            "󰕿",
+            "󰖀",
+            "󰕾"
+        ],
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "scroll-step": 5
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "󰃞",
+            "󰃟",
+            "󰃠"
+        ],
+        "on-scroll-up": "brightnessctl -e4 -n2 set 5%+",
+        "on-scroll-down": "brightnessctl -e4 -n2 set 5%-"
+    },
+    "battery": {
+        "bat": "BAT0",
+        "states": {
+            "warning": 25,
+            "critical": 10
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+        "tooltip-format": "{timeTo}\n{power:.1f} W"
+    }
+}

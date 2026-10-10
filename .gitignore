@@ -1,0 +1,26 @@
+# Whitelist: ~/.config holds lots of app state, so ignore everything and
+# opt in the configs that are actually maintained here.
+/*
+
+!/.gitignore
+!/README.md
+!/AGENTS.md
+!/CLAUDE.md
+
+!/hypr/
+!/quickshell/
+!/waybar/
+!/kitty/
+!/mako/
+!/rofi/
+!/nvim/
+!/gtk-3.0/
+!/gtk-4.0/
+!/Thunar/
+!/xfce4/
+!/mimeapps.list
+
+# herdr: only the config, not its logs and session snapshots
+!/herdr/
+/herdr/*
+!/herdr/config.toml
